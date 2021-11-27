@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.courses.sandbox.Task3" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-27T19:54:17" hostname="HOME-PC" time="0.008">
+  <properties/>
+  <testcase name="testValidNegativeYDistance" classname="ru.courses.sandbox.Task3" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
