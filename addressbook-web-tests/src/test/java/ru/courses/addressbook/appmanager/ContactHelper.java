@@ -49,4 +49,8 @@ public class ContactHelper extends HelperBase{
     public void confirmDeleteContact() {
         alertAccept();
     }
+
+    public void checkAllContact() {
+        click(By.id("MassCB"));
+    }
 }
