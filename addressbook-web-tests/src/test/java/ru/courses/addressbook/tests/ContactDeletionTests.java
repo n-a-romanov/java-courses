@@ -1,11 +1,17 @@
 package ru.courses.addressbook.tests;
 
 import org.testng.annotations.Test;
+import ru.courses.addressbook.model.ContactData;
+import ru.courses.addressbook.model.GroupData;
 
 public class ContactDeletionTests extends TestBase{
 
     @Test (description = "Удаление контакта из карточки редактирования")
     public void testContactDeletionFromEdit(){
+        if (! app.getContactHelper().isThereAContact()) {
+            app.getContactHelper().createContact(new ContactData("testname", "testlname", "testAddress", "1234567890", "test@test.ru", "test1"),true);
+            app.getNavigationHelper().gotoHomePage();
+        }
         app.getContactHelper().editContact();
         app.getContactHelper().deleteEditContact();
         app.getNavigationHelper().gotoHomePage();
@@ -13,6 +19,10 @@ public class ContactDeletionTests extends TestBase{
 
     @Test (description = "Удаление контакта из таблицы")
     public void testContactDeletionFromTable(){
+        if (! app.getContactHelper().isThereAContact()) {
+            app.getContactHelper().createContact(new ContactData("testname", "testlname", "testAddress", "1234567890", "test@test.ru", "test1"),true);
+            app.getNavigationHelper().gotoHomePage();
+        }
         app.getContactHelper().checkContact();
         app.getContactHelper().deleteContact();
         app.getContactHelper().confirmDeleteContact();
@@ -21,6 +31,10 @@ public class ContactDeletionTests extends TestBase{
 
     @Test (description = "Удаление всех контактов")
     public void testContactAllDeletionFromTable(){
+        if (! app.getContactHelper().isThereAContact()) {
+            app.getContactHelper().createContact(new ContactData("testname", "testlname", "testAddress", "1234567890", "test@test.ru", "test1"),true);
+            app.getNavigationHelper().gotoHomePage();
+        }
         app.getContactHelper().checkAllContact();
         app.getContactHelper().deleteContact();
         app.getContactHelper().confirmDeleteContact();
