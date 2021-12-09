@@ -6,32 +6,34 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.courses.addressbook.model.ContactData;
 
-public class ContactHelper extends HelperBase{
+public class ContactHelper extends HelperBase {
 
     public ContactHelper(WebDriver wd) {
         super(wd);
     }
 
     public void saveContact() {
-      click(By.xpath("//div[@id='content']/form/input[21]"));
+        click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
     public void fillContact(ContactData contactData, boolean creation) {
-        type(By.name("firstname"),contactData.getName());
-        type(By.name("lastname"),contactData.getLastname());
-        type(By.name("address"),contactData.getAddress());
-        type(By.name("home"),contactData.getPhoneHome());
-        type(By.name("email"),contactData.getEmail());
+        type(By.name("firstname"), contactData.getName());
+        type(By.name("lastname"), contactData.getLastname());
+        type(By.name("address"), contactData.getAddress());
+        type(By.name("home"), contactData.getPhoneHome());
+        type(By.name("email"), contactData.getEmail());
 
-        if (creation) {
+        if (creation){
+            if (isGroupFind(contactData)) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        }   else Assert.assertFalse(isGroupFind(contactData));
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
     }
 
     public void addNew() {
-      click(By.linkText("add new"));
+        click(By.linkText("add new"));
     }
 
     public void editContact() {
@@ -64,11 +66,16 @@ public class ContactHelper extends HelperBase{
 
     public void createContact(ContactData contactData, boolean b) {
         addNew();
-        fillContact(new ContactData("testname", "testlname", "testAddress", "1234567890", "test@test.ru", "test1"),true);
+        fillContact(new ContactData("testname", "testlname", "testAddress", "1234567890", "test@test.ru", "test1"), true);
         saveContact();
     }
 
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+    public boolean isGroupFind(ContactData contactData) {
+       String xpath = "//select[@name='new_group']/option[contains(text(),'" + contactData.getGroup() + "')]";
+        return isElementPresent(By.xpath(xpath));
     }
 }
