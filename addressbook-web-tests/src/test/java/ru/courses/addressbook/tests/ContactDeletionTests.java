@@ -9,7 +9,7 @@ public class ContactDeletionTests extends TestBase{
     @Test (description = "Удаление контакта из карточки редактирования")
     public void testContactDeletionFromEdit(){
         if (! app.getContactHelper().isThereAContact()) {
-            app.getContactHelper().createContact(new ContactData("testname", "testlname", "testAddress", "1234567890", "test@test.ru", "test1"),true);
+            app.getContactHelper().createContact();
             app.getNavigationHelper().gotoHomePage();
         }
         app.getContactHelper().editContact();
@@ -20,7 +20,7 @@ public class ContactDeletionTests extends TestBase{
     @Test (description = "Удаление контакта из таблицы")
     public void testContactDeletionFromTable(){
         if (! app.getContactHelper().isThereAContact()) {
-            app.getContactHelper().createContact(new ContactData("testname", "testlname", "testAddress", "1234567890", "test@test.ru", "test1"),true);
+            app.getContactHelper().createContact();
             app.getNavigationHelper().gotoHomePage();
         }
         app.getContactHelper().checkContact();
@@ -32,7 +32,7 @@ public class ContactDeletionTests extends TestBase{
     @Test (description = "Удаление всех контактов")
     public void testContactAllDeletionFromTable(){
         if (! app.getContactHelper().isThereAContact()) {
-            app.getContactHelper().createContact(new ContactData("testname", "testlname", "testAddress", "1234567890", "test@test.ru", "test1"),true);
+            app.getContactHelper().createContact();
             app.getNavigationHelper().gotoHomePage();
         }
         app.getContactHelper().checkAllContact();

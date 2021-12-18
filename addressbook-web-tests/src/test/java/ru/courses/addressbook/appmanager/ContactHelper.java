@@ -23,10 +23,10 @@ public class ContactHelper extends HelperBase {
         type(By.name("home"), contactData.getPhoneHome());
         type(By.name("email"), contactData.getEmail());
 
-        if (creation){
+        if (creation) {
             if (isGroupFind(contactData)) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-        }   else Assert.assertFalse(isGroupFind(contactData));
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
@@ -64,7 +64,7 @@ public class ContactHelper extends HelperBase {
         click(By.id("MassCB"));
     }
 
-    public void createContact(ContactData contactData, boolean b) {
+    public void createContact() {
         addNew();
         fillContact(new ContactData("testname", "testlname", "testAddress", "1234567890", "test@test.ru", "test1"), true);
         saveContact();
@@ -75,7 +75,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public boolean isGroupFind(ContactData contactData) {
-       String xpath = "//select[@name='new_group']/option[contains(text(),'" + contactData.getGroup() + "')]";
+        String xpath = "//select[@name='new_group']/option[contains(text(),'" + contactData.getGroup() + "')]";
         return isElementPresent(By.xpath(xpath));
     }
 }
