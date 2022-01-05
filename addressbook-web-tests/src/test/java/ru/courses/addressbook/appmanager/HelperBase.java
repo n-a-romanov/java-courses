@@ -18,6 +18,7 @@ public class HelperBase {
 
     protected void alertAccept() {
         wd.switchTo().alert().accept();
+        wd.findElement(By.cssSelector("div.msgbox"));
     }
 
     protected void type(By locator, String text) {

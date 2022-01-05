@@ -1,53 +1,53 @@
 package ru.courses.addressbook.tests;
 
-import org.testng.Assert;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.courses.addressbook.model.ContactData;
+import ru.courses.addressbook.model.Contacts;
 
-import java.util.List;
+import static org.testng.Assert.assertEquals;
 
-public class ContactDeletionTests extends TestBase{
+public class ContactDeletionTests extends TestBase {
 
-    @Test (description = "Удаление контакта из карточки редактирования")
-    public void testContactDeletionFromEdit(){
-        if (! app.getContactHelper().isThereAContact()) {
-            app.getContactHelper().createContact();
-            app.goTo().gotoHomePage();
+    @BeforeMethod
+    public void ensurePreconditions() {
+        if (!app.contact().isThereAContact()) {
+            app.contact().createContact();
+            app.goTo().home();
         }
-        List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().editContact(before.size() - 1);
-        app.getContactHelper().deleteEditContact();
-        app.goTo().gotoHomePage();
-        List<ContactData> after = app.getContactHelper().getContactList();
-        Assert.assertEquals(after.size(), before.size() - 1);
     }
 
-    @Test (description = "Удаление контакта из таблицы")
-    public void testContactDeletionFromTable(){
-        if (! app.getContactHelper().isThereAContact()) {
-            app.getContactHelper().createContact();
-            app.goTo().gotoHomePage();
-        }
-        List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().checkContact(before.size() - 1);
-        app.getContactHelper().deleteContact();
-        app.getContactHelper().confirmDeleteContact();
-        app.goTo().gotoHomePage();
-        List<ContactData> after = app.getContactHelper().getContactList();
-        Assert.assertEquals(after.size(), before.size() - 1);
+    @Test(description = "Удаление контакта из карточки редактирования")
+    public void testContactDeletionFromEdit() throws InterruptedException {
+        Contacts before = app.contact().all();
+        ContactData deletedContact = before.iterator().next();
+        app.contact().delete(deletedContact);
+        app.goTo().home();
+        Contacts after = app.contact().all();
+        assertEquals(after.size(), before.size() - 1);
+        MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(deletedContact)));
     }
 
-    @Test (description = "Удаление всех контактов")
-    public void testContactAllDeletionFromTable(){
-        if (! app.getContactHelper().isThereAContact()) {
-            app.getContactHelper().createContact();
-            app.goTo().gotoHomePage();
-        }
-        app.getContactHelper().checkAllContact();
-        app.getContactHelper().deleteContact();
-        app.getContactHelper().confirmDeleteContact();
-        app.goTo().gotoHomePage();
-        List<ContactData> after = app.getContactHelper().getContactList();
-        Assert.assertEquals(after.size(), 0);
+    @Test(description = "Удаление контакта из таблицы")
+    public void testContactDeletionFromTable() {
+        Contacts before = app.contact().all();
+        ContactData deletedContact = before.iterator().next();
+        app.contact().deleteCheckedContact(deletedContact);
+        app.goTo().home();
+        Contacts after = app.contact().all();
+        assertEquals(after.size(), before.size() - 1);
+        MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(deletedContact)));
+    }
+
+    @Test(description = "Удаление всех контактов")
+    public void testContactAllDeletionFromTable() {
+        app.contact().checkAllContact();
+        app.contact().deleteContact();
+        app.contact().confirmDeleteContact();
+        app.goTo().home();
+        Contacts after = app.contact().all();
+        assertEquals(after.size(), 0);
     }
 }

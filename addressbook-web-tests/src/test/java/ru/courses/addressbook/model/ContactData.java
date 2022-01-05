@@ -3,41 +3,51 @@ package ru.courses.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-    private final String name;
-    private final String lastname;
-    private final String address;
-    private final String phoneHome;
-    private final String email;
-    private int id;
+    private String name;
+    private String lastname;
+    private String address;
+    private String phoneHome;
+    private String email;
+    private int id = Integer.MAX_VALUE;
     private String group;
+
+    public ContactData withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public ContactData withLastname(String lastname) {
+        this.lastname = lastname;
+        return this;
+    }
+
+    public ContactData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public ContactData withPhoneHome(String phoneHome) {
+        this.phoneHome = phoneHome;
+        return this;
+    }
+
+    public ContactData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public ContactData withGroup(String group) {
+        this.group = group;
+        return this;
+    }
 
     public int getId() {
         return id;
     }
 
-    public ContactData setId(int id) {
+    public ContactData withId(int id) {
         this.id = id;
         return this;
-    }
-
-    public ContactData(int id, String name, String lastname) {
-        this.id = id;
-        this.name = name;
-        this.lastname = lastname;
-        this.address = null;
-        this.phoneHome = null;
-        this.email = null;
-        this.group = null;
-    }
-
-    public ContactData(String name, String lastname, String address, String phoneHome, String email, String group) {
-        this.id = Integer.MAX_VALUE;
-        this.name = name;
-        this.lastname = lastname;
-        this.address = address;
-        this.phoneHome = phoneHome;
-        this.email = email;
-        this.group = group;
     }
 
     public String getName() {
