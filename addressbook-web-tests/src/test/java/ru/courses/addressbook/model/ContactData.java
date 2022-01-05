@@ -6,7 +6,15 @@ public class ContactData {
     private String name;
     private String lastname;
     private String address;
+    private String address2;
     private String phoneHome;
+    private String phoneMobile;
+    private String phoneWork;
+    private String phone2;
+    private String allPhones;
+    private String email2;
+    private String email3;
+    private String allEmails;
     private String email;
     private int id = Integer.MAX_VALUE;
     private String group;
@@ -26,13 +34,56 @@ public class ContactData {
         return this;
     }
 
+    public ContactData withAddress2(String address2) {
+        this.address2 = address2;
+        return this;
+    }
+
     public ContactData withPhoneHome(String phoneHome) {
         this.phoneHome = phoneHome;
         return this;
     }
 
+    public ContactData withPhoneMobile(String phoneMobile) {
+        this.phoneMobile = phoneMobile;
+        return this;
+    }
+
+    public ContactData withPhoneWork(String phoneWork) {
+        this.phoneWork = phoneWork;
+        return this;
+    }
+
+
     public ContactData withEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public ContactData withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+    }
+
+    public String getEmail3() {
+        return email3;
+    }
+
+    public ContactData withEmail3(String email3) {
+        this.email3 = email3;
+        return this;
+    }
+
+    public String getAllEmails() {
+        return allEmails;
+    }
+
+    public ContactData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
         return this;
     }
 
@@ -45,10 +96,37 @@ public class ContactData {
         return id;
     }
 
+    public String getPhoneMobile() {
+        return phoneMobile;
+    }
+
+    public String getPhoneWork() {
+        return phoneWork;
+    }
+
+    public String getPhone2() {
+        return phone2;
+    }
+
+    public ContactData withPhone2(String phone2) {
+        this.phone2 = phone2;
+        return this;
+    }
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
     public ContactData withId(int id) {
         this.id = id;
         return this;
     }
+
 
     public String getName() {
         return name;
@@ -60,6 +138,10 @@ public class ContactData {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getAddress2() {
+        return address2;
     }
 
     public String getPhoneHome() {
