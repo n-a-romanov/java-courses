@@ -8,8 +8,10 @@ import org.testng.annotations.Test;
 import ru.courses.addressbook.model.GroupData;
 import ru.courses.addressbook.model.Groups;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +33,7 @@ public class GroupCreationTests extends TestBase {
         XStream xstream = new XStream();
         xstream.processAnnotations(GroupData.class);
         List<GroupData> groups = (List<GroupData>) xstream.fromXML(xml);
-        return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+        return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
 
     @DataProvider
@@ -44,11 +46,12 @@ public class GroupCreationTests extends TestBase {
             line = reader.readLine();
         }
         Gson gson = new Gson();
-        List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>(){}.getType());
-        return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+        List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>() {
+        }.getType());
+        return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
 
-    @Test (dataProvider = "validGroupsFromJson")
+    @Test(dataProvider = "validGroupsFromJson")
     public void testGroupCreation(GroupData group) {
         app.goTo().groupPage();
         Groups before = app.group().all();
