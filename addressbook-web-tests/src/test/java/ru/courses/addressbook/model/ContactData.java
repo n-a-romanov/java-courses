@@ -1,13 +1,19 @@
 package ru.courses.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.File;
 import java.util.Objects;
 
 public class ContactData {
+    @Expose
     private String name;
+    @Expose
     private String lastname;
+    @Expose
     private String address;
     private String address2;
+    @Expose
     private String phoneHome;
     private String phoneMobile;
     private String phoneWork;
@@ -16,8 +22,10 @@ public class ContactData {
     private String email2;
     private String email3;
     private String allEmails;
+    @Expose
     private String email;
     private int id = Integer.MAX_VALUE;
+    @Expose
     private String group;
     private File photo;
 
