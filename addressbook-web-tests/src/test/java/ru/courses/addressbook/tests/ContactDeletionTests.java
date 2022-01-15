@@ -13,7 +13,7 @@ public class ContactDeletionTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        if (!app.contact().isThereAContact()) {
+        if (app.db().contacts().size() == 0) {
             app.contact().createContact();
             app.goTo().home();
         }
@@ -21,22 +21,22 @@ public class ContactDeletionTests extends TestBase {
 
     @Test(description = "Удаление контакта из карточки редактирования")
     public void testContactDeletionFromEdit() throws InterruptedException {
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData deletedContact = before.iterator().next();
         app.contact().delete(deletedContact);
         app.goTo().home();
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertEquals(after.size(), before.size() - 1);
         MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(deletedContact)));
     }
 
     @Test(description = "Удаление контакта из таблицы")
     public void testContactDeletionFromTable() {
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData deletedContact = before.iterator().next();
         app.contact().deleteCheckedContact(deletedContact);
         app.goTo().home();
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertEquals(after.size(), before.size() - 1);
         MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(deletedContact)));
     }
@@ -47,7 +47,7 @@ public class ContactDeletionTests extends TestBase {
         app.contact().deleteContact();
         app.contact().confirmDeleteContact();
         app.goTo().home();
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertEquals(after.size(), 0);
     }
 }

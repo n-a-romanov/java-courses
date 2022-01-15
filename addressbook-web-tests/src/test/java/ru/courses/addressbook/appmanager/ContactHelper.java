@@ -8,6 +8,7 @@ import org.testng.Assert;
 import ru.courses.addressbook.model.ContactData;
 import ru.courses.addressbook.model.Contacts;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -27,9 +28,9 @@ public class ContactHelper extends HelperBase {
         type(By.name("address"), contactData.getAddress());
         type(By.name("home"), contactData.getPhoneHome());
         type(By.name("email"), contactData.getEmail());
-        attache(By.name("photo"), contactData.getPhoto());
 
         if (creation) {
+            attache(By.name("photo"), contactData.getPhoto());
             if (isGroupFind(contactData)) {
                 new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
             }
@@ -61,6 +62,10 @@ public class ContactHelper extends HelperBase {
 
     public void checkContact(int id) {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+    }
+
+    public int count() {
+        return wd.findElements(By.name("selected[]")).size();
     }
 
     public void deleteContact() {
@@ -100,7 +105,8 @@ public class ContactHelper extends HelperBase {
             .withAddress("testaddress")
             .withPhoneHome("123454321")
             .withEmail("1@1.ru")
-            .withGroup("test1"), true);
+            .withGroup("test1")
+            .withPhoto(new File("src/test/resources/photo.png")), true);
         saveContact();
     }
 

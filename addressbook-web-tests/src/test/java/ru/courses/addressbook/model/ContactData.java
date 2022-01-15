@@ -1,40 +1,62 @@
 package ru.courses.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
     @Expose
+    @Column(name = "firstname")
     private String name;
     @Expose
     private String lastname;
     @Expose
+    @Type(type = "text")
     private String address;
+    @Type(type = "text")
     private String address2;
     @Expose
+    @Column(name = "home")
+    @Type(type = "text")
     private String phoneHome;
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String phoneMobile;
+    @Column(name = "work")
+    @Type(type = "text")
     private String phoneWork;
+    @Type(type = "text")
     private String phone2;
+    @Transient
     private String allPhones;
+    @Type(type = "text")
     private String email2;
+    @Type(type = "text")
     private String email3;
+    @Transient
     private String allEmails;
     @Expose
+    @Type(type = "text")
     private String email;
+    @Id
     private int id = Integer.MAX_VALUE;
     @Expose
+    @Transient
     private String group;
-    private File photo;
+    @Type(type = "text")
+    private String photo;
 
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
@@ -176,12 +198,12 @@ public class ContactData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
-        return Objects.equals(name, that.name) && Objects.equals(lastname, that.lastname);
+        return Objects.equals(name, that.name) && Objects.equals(lastname, that.lastname) && Objects.equals(address, that.address) && Objects.equals(phoneHome, that.phoneHome) && Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, lastname);
+        return Objects.hash(name, lastname, address, phoneHome, email);
     }
 
     @Override

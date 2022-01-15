@@ -5,7 +5,8 @@
     "address": "testaddress0",
     "phoneHome": "0",
     "email": "0@0.ru",
-    "group": "test0"
+    "group": "test0",
+    "photo": "src/test/resources/photo.png"
   },
   {
     "name": "testname1",
@@ -13,7 +14,8 @@
     "address": "testaddress1",
     "phoneHome": "1",
     "email": "1@1.ru",
-    "group": "test1"
+    "group": "test1",
+    "photo": "src/test/resources/photo.png"
   },
   {
     "name": "testname2",
@@ -21,6 +23,7 @@
     "address": "testaddress2",
     "phoneHome": "2",
     "email": "2@2.ru",
-    "group": "test2"
+    "group": "test2",
+    "photo": "src/test/resources/photo.png"
   }
 ]
