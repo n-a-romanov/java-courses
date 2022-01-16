@@ -28,9 +28,9 @@ public class AddContactsInGroupsTests extends TestBase {
         ContactData modifiedContact = app.db().contacts().iterator().next();
         GroupData selectedGroup = app.db().groups().iterator().next();
         Groups before = modifiedContact.getGroups();
-        if (modifiedContact.getGroups().size() == 0) {
+        if (modifiedContact.getGroups().size() != 0 && app.contact().isContactGroupFind(modifiedContact, app.db().groups())) {
             selectedGroup = app.group().addGroupAndCheck(selectedGroup);
-        } else
+        }
         app.contact().addGroupToContact(modifiedContact, selectedGroup);
         app.goTo().home();
         Groups after = app.db().contacts().iterator().next().withId(modifiedContact.getId()).getGroups();
