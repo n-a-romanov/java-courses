@@ -118,7 +118,7 @@ public class ContactHelper extends HelperBase {
         saveEditContact();
     }
 
-    public void addGroupToContact(ContactData contact, GroupData group) {
+    public void addGroupToContact(ContactData contact, GroupData group) throws InterruptedException {
         checkContact(contact.getId());
         addToGroup(group);
     }

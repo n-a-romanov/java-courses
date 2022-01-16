@@ -3,6 +3,8 @@ package ru.courses.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import ru.courses.addressbook.model.ContactData;
 import ru.courses.addressbook.model.GroupData;
 import ru.courses.addressbook.model.Groups;
 
@@ -41,7 +43,7 @@ public class GroupHelper extends HelperBase {
     }
 
     public void selectGroupById(int id) {
-        wd.findElement(By.cssSelector("input[value='"+id+"']")).click();
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
     public void initGroupModification() {
@@ -87,10 +89,10 @@ public class GroupHelper extends HelperBase {
 
     private Groups groupCache = null;
 
-   public Groups all() {
-       if (groupCache != null) {
-           return new Groups(groupCache);
-       }
+    public Groups all() {
+        if (groupCache != null) {
+            return new Groups(groupCache);
+        }
 
         groupCache = new Groups();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
@@ -117,4 +119,18 @@ public class GroupHelper extends HelperBase {
         return group;
     }
 
+    public void deleteContactFromGroup(ContactData contact, GroupData group) {
+        selectGroupFromDropDownListById(group);
+        deleteSelectedContactFromGroup(contact);
+    }
+
+    private void deleteSelectedContactFromGroup(ContactData contact) {
+        app.contact().checkContact(contact.getId());
+        click(By.name("remove"));
+    }
+
+    private void selectGroupFromDropDownListById(GroupData group) {
+        app.goTo().home();
+        new Select(wd.findElement(By.xpath("//select[@name='group']"))).selectByValue(String.valueOf(group.getId()));
+    }
 }
