@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static ru.courses.addressbook.tests.TestBase.app;
+
 public class GroupHelper extends HelperBase {
 
     public GroupHelper(WebDriver wd) {
@@ -98,6 +100,21 @@ public class GroupHelper extends HelperBase {
             groupCache.add(new GroupData().withId(id).withName(name));
         }
         return new Groups(groupCache);
+    }
+
+    public GroupData addGroupAndCheck(GroupData group) {
+        app.goTo().groupPage();
+        app.group().create(new GroupData().withName("testsG1"));
+
+        int max = 0;
+        for (GroupData g : app.db().groups()) {
+            if (g.getId() > max) {
+                max = g.getId();
+                group = g.withId(max);
+            }
+        }
+        app.goTo().home();
+        return group;
     }
 
 }

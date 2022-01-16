@@ -1,12 +1,12 @@
 package ru.courses.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.courses.addressbook.model.ContactData;
 import ru.courses.addressbook.model.Contacts;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
 
 public class ContactDeletionTests extends TestBase {
@@ -27,7 +27,8 @@ public class ContactDeletionTests extends TestBase {
         app.goTo().home();
         Contacts after = app.db().contacts();
         assertEquals(after.size(), before.size() - 1);
-        MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(deletedContact)));
+        assertThat(after, equalTo(before.without(deletedContact)));
+        verifyContactListInUI();
     }
 
     @Test(description = "Удаление контакта из таблицы")
@@ -38,7 +39,8 @@ public class ContactDeletionTests extends TestBase {
         app.goTo().home();
         Contacts after = app.db().contacts();
         assertEquals(after.size(), before.size() - 1);
-        MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(deletedContact)));
+        assertThat(after, equalTo(before.without(deletedContact)));
+        verifyContactListInUI();
     }
 
     @Test(description = "Удаление всех контактов")
@@ -49,5 +51,6 @@ public class ContactDeletionTests extends TestBase {
         app.goTo().home();
         Contacts after = app.db().contacts();
         assertEquals(after.size(), 0);
+        verifyContactListInUI();
     }
 }

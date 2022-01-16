@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.courses.addressbook.model.ContactData;
 import ru.courses.addressbook.model.Contacts;
+import ru.courses.addressbook.model.GroupData;
+import ru.courses.addressbook.model.Groups;
 
 import java.io.File;
 import java.util.List;
@@ -31,8 +33,9 @@ public class ContactHelper extends HelperBase {
 
         if (creation) {
             attache(By.name("photo"), contactData.getPhoto());
-            if (isGroupFind(contactData)) {
-                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            if (contactData.getGroups().size() > 0) {
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
             }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
@@ -105,16 +108,24 @@ public class ContactHelper extends HelperBase {
             .withAddress("testaddress")
             .withPhoneHome("123454321")
             .withEmail("1@1.ru")
-            .withGroup("test1")
             .withPhoto(new File("src/test/resources/photo.png")), true);
         saveContact();
     }
 
     public void modify(ContactData contact) {
         editContactById(contact.getId());
-
         fillContact(contact,false);
         saveEditContact();
+    }
+
+    public void addGroupToContact(ContactData contact, GroupData group) {
+        checkContact(contact.getId());
+        addToGroup(group);
+    }
+
+    private void addToGroup(GroupData group) {
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(group.getId()));
+        click(By.name("add"));
     }
 
     public boolean isThereAContact() {
@@ -122,7 +133,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public boolean isGroupFind(ContactData contactData) {
-        String xpath = "//select[@name='new_group']/option[contains(text(),'" + contactData.getGroup() + "')]";
+        String xpath = "//select[@name='new_group']/option[contains(text(),'" + contactData.getGroups() + "')]";
         return isElementPresent(By.xpath(xpath));
     }
 
@@ -176,4 +187,13 @@ public class ContactHelper extends HelperBase {
             .withEmail2(email2)
             .withEmail3(email3);
     }
+
+    public boolean isContactGroupFind (ContactData contact, Groups groups) {
+        for (GroupData g : groups)
+            if (contact.getGroups().iterator().next().getId() == g.getId()) {
+                return true;
+            }
+        return false;
+    }
+
 }

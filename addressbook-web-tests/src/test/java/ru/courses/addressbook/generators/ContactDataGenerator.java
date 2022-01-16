@@ -63,8 +63,7 @@ public class ContactDataGenerator {
                 .withLastname(String.format("testlname%s", i))
                 .withAddress(String.format("testaddress%s", i))
                 .withPhoneHome(String.format("%s", i))
-                .withEmail(String.format("%s@%s.ru", i, i))
-                .withGroup(String.format("test%s", i)));
+                .withEmail(String.format("%s@%s.ru", i, i)));
         }
         return contacts;
     }

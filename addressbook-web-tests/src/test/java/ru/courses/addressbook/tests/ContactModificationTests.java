@@ -26,12 +26,17 @@ public class ContactModificationTests extends TestBase{
         ContactData contact = new ContactData()
             .withId(modifiedContact.getId())
             .withName("Mktestname")
-            .withLastname("Mtestlname");
+            .withLastname("Mtestlname")
+            .withAddress("1")
+            .withPhoneHome("23")
+            .withEmail("t@t.ru");
         app.contact().modify(contact);
         app.goTo().homePage();
         Contacts after = app.db().contacts();
         assertEquals(after.size(), before.size());
         assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
+        verifyContactListInUI();
+
     }
 
 }
