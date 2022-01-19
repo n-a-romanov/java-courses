@@ -2,6 +2,7 @@ package ru.courses.mantis.appmanager;
 
 import org.apache.commons.net.telnet.TelnetClient;
 import ru.courses.mantis.model.MailMessage;
+import ru.lanwen.verbalregex.VerbalExpression;
 
 import javax.mail.*;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class JamesHelper {
 
     private Session mailSession;
     private Store store;
-    private String mailserver;
+    private String mailserver = "localhost";
 
     public JamesHelper (ApplicationManager app) {
         this.app = app;
@@ -161,5 +162,11 @@ public class JamesHelper {
             e.printStackTrace();
             return null;
         }
+    }
+
+    protected String findConfirmationLink(List<MailMessage> mailMessages, String email) {
+        MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
+        VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
+        return regex.getText(mailMessage.text);
     }
 }

@@ -25,6 +25,8 @@ public class ApplicationManager {
     private FtpHelper ftp;
     private MailHelper mailHelper;
     private JamesHelper jamesHelper;
+    private AdministrationHelper administrationHelper;
+    private UserHelper userHelper;
 
     public FtpHelper ftp() {
         if(ftp == null) {
@@ -92,5 +94,19 @@ public class ApplicationManager {
             jamesHelper = new JamesHelper(this);
         }
         return jamesHelper;
+    }
+
+    public AdministrationHelper admin() {
+        if(administrationHelper == null) {
+            administrationHelper = new AdministrationHelper(this);
+        }
+        return administrationHelper;
+    }
+
+    public UserHelper user() {
+        if(userHelper == null) {
+            userHelper = new UserHelper(this);
+        }
+        return userHelper;
     }
 }
