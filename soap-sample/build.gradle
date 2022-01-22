@@ -1,0 +1,33 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.testng:testng:6.9.10'
+    implementation 'com.sun.xml.ws:jaxws-rt:2.3.5'
+}
+
+test {
+    useTestNG()
+}
+
+buildscript{
+    repositories{
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'no.nils:wsdl2java:0.12'
+    }
+}
+
+apply plugin: 'no.nils.wsdl2java'
+
+wsdl2java {
+    wsdlDir = file("D:/courses/Java-courses/soap-sample/src/main/resources") // define to support incremental build
+    wsdlsToGenerate = [   //  2d-array of wsdls and cxf-parameters
+                          ['D:/courses/Java-courses/soap-sample/src/main/resources/ipservice.wsdl']
+    ]
+}
