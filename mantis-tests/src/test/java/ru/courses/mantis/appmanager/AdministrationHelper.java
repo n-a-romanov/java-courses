@@ -16,6 +16,10 @@ public class AdministrationHelper extends HelperBase {
         click(By.cssSelector("input.button"));
     }
 
+    public void logout (){
+        click(By.id("logout-link"));
+    }
+
     public void resetPasswd (String username, String password) throws MessagingException {
         if (!app.james().doesUserExist(username)) {
             app.james().createUser(username,password);

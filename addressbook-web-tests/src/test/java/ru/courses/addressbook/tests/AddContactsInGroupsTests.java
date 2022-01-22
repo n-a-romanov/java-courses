@@ -25,6 +25,7 @@ public class AddContactsInGroupsTests extends TestBase {
 
     @Test
     public void testAddContactsInGroup() throws InterruptedException {
+
         ContactData modifiedContact = app.db().contacts().iterator().next();
         GroupData selectedGroup = app.db().groups().iterator().next();
         Groups before = modifiedContact.getGroups();

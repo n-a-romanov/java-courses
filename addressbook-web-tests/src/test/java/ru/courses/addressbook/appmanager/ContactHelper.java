@@ -114,7 +114,7 @@ public class ContactHelper extends HelperBase {
 
     public void modify(ContactData contact) {
         editContactById(contact.getId());
-        fillContact(contact,false);
+        fillContact(contact, false);
         saveEditContact();
     }
 
@@ -188,7 +188,7 @@ public class ContactHelper extends HelperBase {
             .withEmail3(email3);
     }
 
-    public boolean isContactGroupFind (ContactData contact, Groups groups) {
+    public boolean isContactGroupFind(ContactData contact, Groups groups) {
         for (GroupData g : groups)
             if (contact.getGroups().iterator().next().getId() == g.getId()) {
                 return true;
