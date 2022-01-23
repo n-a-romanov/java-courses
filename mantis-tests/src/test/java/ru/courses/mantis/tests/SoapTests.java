@@ -12,7 +12,7 @@ import java.rmi.RemoteException;
 import java.util.Set;
 
 public class SoapTests extends TestBase{
-    
+
 //    @BeforeMethod
 //    public void precondition () throws MalformedURLException, ServiceException, RemoteException {
 //        skipIfNotFixed(1);
