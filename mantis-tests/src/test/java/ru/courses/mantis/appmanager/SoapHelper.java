@@ -30,7 +30,7 @@ public class SoapHelper extends TestBase {
 
     public MantisConnectPortType getMantisConnect() throws ServiceException, MalformedURLException {
         MantisConnectPortType mc = new MantisConnectLocator()
-            .getMantisConnectPort(new URL("http://localhost/mantisbt/api/soap/mantisconnect.php"));
+            .getMantisConnectPort(new URL(app.getProperty("web.baseUrl") + "api/soap/mantisconnect.php"));
         return mc;
     }
 
