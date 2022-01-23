@@ -11,6 +11,7 @@ public class AdministrationHelper extends HelperBase {
     }
 
     public void login (){
+        wd.get(app.getProperty("web.baseUrl") + "login_page.php");
         type(By.name("username"), "administrator");
         type(By.name("password"), "root");
         click(By.cssSelector("input.button"));

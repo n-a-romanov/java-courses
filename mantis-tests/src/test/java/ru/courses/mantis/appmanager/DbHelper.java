@@ -26,7 +26,7 @@ public class DbHelper extends HelperBase{
    public Users users() {
         Session session = (sessionFactory).openSession();
         session.beginTransaction();
-        List<UserData> result = session.createQuery("FROM UserData WHERE access_level = 25 AND password = '5f4dcc3b5aa765d61d8327deb882cf99'").list();
+        List<UserData> result = session.createQuery("FROM UserData").list();
         session.getTransaction().commit();
         session.close();
         return new Users(result);

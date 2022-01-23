@@ -15,7 +15,7 @@ public class ChangePasswordTests extends TestBase{
 
     @BeforeMethod
     public void ensurePrecondition() throws MessagingException {
-        if (app.db().users().size() == 0) {
+        if (app.db().users().size() == 0 || app.db().users().stream().noneMatch(u -> u.getAccessLevel() == 25)) {
             long now = System.currentTimeMillis();
             String user = String.format("user%s", now);
             String email = String.format("user%s@localhost", now);
@@ -25,7 +25,6 @@ public class ChangePasswordTests extends TestBase{
             List<MailMessage> mailMessages = app.james().waitForMail(user, password, 60000);
             String confirmationLink = app.james().findConfirmationLink(mailMessages, email);
             app.registration().finish(confirmationLink, password);
-            app.admin().logout();
         }
     }
 
