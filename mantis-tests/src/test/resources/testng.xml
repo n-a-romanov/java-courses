@@ -6,6 +6,7 @@
             <class name="ru.courses.mantis.tests.LoginTests" />
             <class name="ru.courses.mantis.tests.RegistrationTests" />
             <class name="ru.courses.mantis.tests.ChangePasswordTests"></class>
+            <class name="ru.courses.mantis.tests.SoapTests"></class>
         </classes>
     </test>
 </suite>

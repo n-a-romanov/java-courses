@@ -28,6 +28,7 @@ public class ApplicationManager {
     private AdministrationHelper administrationHelper;
     private UserHelper userHelper;
     private DbHelper dbHelper;
+    private SoapHelper soapHelper;
 
     public FtpHelper ftp() {
         if(ftp == null) {
@@ -116,5 +117,12 @@ public class ApplicationManager {
             dbHelper = new DbHelper(this);
         }
         return dbHelper;
+    }
+
+    public SoapHelper soap() {
+        if(soapHelper == null) {
+            soapHelper = new SoapHelper(this);
+        }
+        return soapHelper;
     }
 }
