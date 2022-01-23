@@ -1,0 +1,19 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.testng:testng:7.4.0'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+    implementation 'org.hamcrest:java-hamcrest:2.0.0.0'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+    implementation 'commons-net:commons-net:3.4'
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'org.apache.httpcomponents:fluent-hc:4.5.13'
+}
+
+test {
+    useTestNG()
+}
