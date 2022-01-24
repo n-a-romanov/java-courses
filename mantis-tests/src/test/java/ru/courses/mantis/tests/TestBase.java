@@ -17,11 +17,7 @@ public class TestBase {
         public static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
 
         public boolean isIssueOpen(int issueId) throws MalformedURLException, ServiceException, RemoteException {
-            if (app.soap().getIssueStatus(issueId).equals("closed")) {
-                return false;
-            } else {
-                return true;
-            }
+            return !app.rest().getIssueStatus(issueId).equals("Closed");
         }
 
     public void skipIfNotFixed(int issueId) throws MalformedURLException, ServiceException, RemoteException {

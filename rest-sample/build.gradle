@@ -12,6 +12,7 @@ dependencies {
     implementation 'commons-net:commons-net:3.4'
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'org.apache.httpcomponents:fluent-hc:4.5.13'
+    implementation 'com.jayway.restassured:rest-assured:2.9.0'
 }
 
 test {
