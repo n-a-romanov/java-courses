@@ -11,8 +11,8 @@ public class UserHelper extends HelperBase {
         super(app);
     }
 
-    public void resetPasswd (String username, String password, String newPassword) throws MessagingException {
-        List<MailMessage> mailMessages = app.james().waitForMail(username, password, 60000);
+    public void confirmResetPassword(String username, String mailPassword, String newPassword) throws MessagingException {
+        List<MailMessage> mailMessages = app.james().waitForMail(username, mailPassword, 60000);
         String confirmationLink = app.james().findConfirmationLink(mailMessages, username + "@localhost");
         app.registration().finish(confirmationLink, newPassword);
     }

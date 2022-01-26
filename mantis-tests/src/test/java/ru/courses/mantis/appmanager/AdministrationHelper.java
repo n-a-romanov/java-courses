@@ -12,8 +12,8 @@ public class AdministrationHelper extends HelperBase {
 
     public void login (){
         wd.get(app.getProperty("web.baseUrl") + "login_page.php");
-        type(By.name("username"), "administrator");
-        type(By.name("password"), "root");
+        type(By.name("username"), app.getProperty("web.adminLogin"));
+        type(By.name("password"), app.getProperty("web.adminPassword"));
         click(By.cssSelector("input.button"));
     }
 
@@ -21,13 +21,13 @@ public class AdministrationHelper extends HelperBase {
         click(By.id("logout-link"));
     }
 
-    public void resetPasswd (String username, String password) throws MessagingException {
+    public void initResetPassword(String username, String mailPassword) throws MessagingException {
         if (!app.james().doesUserExist(username)) {
-            app.james().createUser(username,password);
+            app.james().createUser(username,mailPassword);
         }
-        app.james().drainEmail(username,password);
+        app.james().drainEmail(username,mailPassword);
         click(By.cssSelector("a.manage-menu-link"));
-        click(By.xpath("//a[contains(@href, '/mantisbt/manage_user_page.php')]"));
+        click(By.xpath("//a[contains(@href, '/manage_user_page.php')]"));
         click(By.linkText(username));
         click(By.xpath("//form[@id='manage-user-reset-form']/fieldset/span/input"));
     }

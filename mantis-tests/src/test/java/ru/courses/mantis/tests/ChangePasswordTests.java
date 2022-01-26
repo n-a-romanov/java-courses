@@ -2,7 +2,6 @@ package ru.courses.mantis.tests;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.courses.mantis.appmanager.HttpSession;
 import ru.courses.mantis.model.MailMessage;
 
 import javax.mail.MessagingException;
@@ -15,7 +14,8 @@ public class ChangePasswordTests extends TestBase{
 
     @BeforeMethod
     public void ensurePrecondition() throws MessagingException {
-        if (app.db().users().size() == 0 || app.db().users().stream().noneMatch(u -> u.getAccessLevel() == 25)) {
+        if (app.db().users().size() == 0
+            || (app.db().users().stream().noneMatch(u -> (u.getAccessLevel() == 25) && u.getEmail().equals(u.getUsername() + "@localhost")))) {
             long now = System.currentTimeMillis();
             String user = String.format("user%s", now);
             String email = String.format("user%s@localhost", now);
@@ -31,11 +31,11 @@ public class ChangePasswordTests extends TestBase{
     @Test
     public void testChangePasswd() throws IOException, MessagingException {
         String user = app.db().users().iterator().next().getUsername();
-        String password = "password";
+        String mailPassword = "password";
         String newPassword = "pass";
         app.admin().login();
-        app.admin().resetPasswd(user, password);
-        app.user().resetPasswd(user,password, newPassword);
+        app.admin().initResetPassword(user, mailPassword);
+        app.user().confirmResetPassword(user,mailPassword, newPassword);
         assertTrue(app.newSession().login(user,newPassword));
     }
 }
